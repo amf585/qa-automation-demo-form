@@ -35,7 +35,10 @@ export default function DefectForm() {
   const [errors, setErrors] = useState<Errors>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target;
+    const target = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+    const { name, value, type } = target;
+    const checked = target instanceof HTMLInputElement && target.type === "checkbox" ? target.checked : false;
+
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
@@ -56,7 +59,7 @@ export default function DefectForm() {
   const validate = (): boolean => {
     const newErrors: Errors = {};
     ["email", "summary", "description", "steps", "area", "severity"].forEach((field) => {
-      validateField(field, (formData as any)[field]);
+      validateField(field as keyof FormData, formData[field as keyof FormData]?.toString());
     });
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
