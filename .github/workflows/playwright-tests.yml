@@ -1,0 +1,46 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches:
+      - main  # Runs tests when code is pushed to main
+  pull_request:
+    branches:
+      - main  # Runs tests on PRs targeting main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Uses the latest Ubuntu runner
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Pulls latest code
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci  # Installs project dependencies
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright Tests Against Localhost
+        run: npx start-server-and-test 'npm run dev' http://localhost:3000 'npx playwright test --reporter=html,junit'
+
+      - name: Ensure Playwright Report Directory Exists
+        run: mkdir -p playwright-report 
+
+      - name: Upload Playwright Test Report (Artifacts)
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+
+      - name: Upload Playwright Test Results (JUnit)
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: playwright-report
