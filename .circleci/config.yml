@@ -17,18 +17,23 @@ jobs:
 
       - run:
           name: Run Playwright tests against localhost
-          command: npx start-server-and-test 'npm run dev' http://localhost:3000 'npx playwright test --reporter=html,junit'
+          command: npx start-server-and-test 'npm run dev' http://localhost:3000 'npx playwright test --reporter=html,junit --config=playwright.config.ts'
 
       - run:
           name: Ensure report directory exists
           command: mkdir -p playwright-report
+
+      - save_cache:
+          key: v1-playwright-snapshots-{{ .Branch }}-{{ epoch }}
+          paths:
+            - tests/visual-tests/__snapshots__
 
       - store_artifacts:
           path: playwright-report
           destination: playwright-report
 
       - store_test_results:
-          path: playwright-report  # Save test results
+          path: playwright-report
 workflows:
   build:
     jobs:

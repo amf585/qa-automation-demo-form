@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "npx playwright test",
+    "test:update-snapshots": "npx playwright test --update-snapshots"
   },
   "dependencies": {
     "@playwright/test": "^1.50.1",
