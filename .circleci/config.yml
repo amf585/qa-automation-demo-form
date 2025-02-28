@@ -1,0 +1,35 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.40.0  # Official Playwright image
+    steps:
+      - checkout  # Pull the latest code
+
+      - run:
+          name: Install dependencies
+          command: npm ci
+
+      - run:
+          name: Install Playwright Browsers
+          command: npx playwright install --with-deps
+
+      - run:
+          name: Run Playwright tests against localhost
+          command: npx start-server-and-test 'npm run dev' http://localhost:3000 'npx playwright test --reporter=html,junit'
+
+      - run:
+          name: Ensure report directory exists
+          command: mkdir -p playwright-report
+
+      - store_artifacts:
+          path: playwright-report
+          destination: playwright-report
+
+      - store_test_results:
+          path: playwright-report  # Save test results
+workflows:
+  build:
+    jobs:
+      - test
