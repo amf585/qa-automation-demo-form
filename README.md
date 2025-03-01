@@ -6,7 +6,7 @@ The goal for me was to demonstrate Playwright QA automation via CircleCI & Githu
 
 I generated (and slightly tweaked) the code for the `DefectForm.tsx` via Vercel's v0 AI tool. This tool can be used to generate Shadcn/tailwind, etc. code for projects. For this project my focus was on setting up automation, so I decided to use AI tools to help spin up the app for me. :)
 
-![image](https://github.com/user-attachments/assets/78c20e17-1f24-425c-b9b5-f0abbc6f9abf)
+<img width="573" alt="Screen Shot 2025-02-28 at 11 40 48 AM" src="https://github.com/user-attachments/assets/9cc6eb8c-c112-4ba7-9d47-0f9a50b4cf04" />
 
 ### circleCI
 For an example of a circleCI config file check out: `.circleci/config.yml`
