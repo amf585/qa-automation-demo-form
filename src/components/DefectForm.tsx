@@ -76,7 +76,7 @@ export default function DefectForm() {
     <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4 w-full">
       <div className="max-w-xl w-full p-8 bg-white dark:bg-gray-800 shadow-lg rounded-xl">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Submit a Defect</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form id="defect-form" onSubmit={handleSubmit} className="space-y-4">
         <div>
             <label className="block text-sm font-medium text-gray-900 dark:text-gray-300">Area</label>
             <select
